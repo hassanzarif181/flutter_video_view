@@ -447,8 +447,21 @@ class VideoController(
 	override fun onVideoSizeChanged(videoSize: VideoSize) {
 		super.onVideoSizeChanged(videoSize)
 		if (state > 0U) {
-			val width = (videoSize.width * videoSize.pixelWidthHeightRatio).roundToInt()
-			val height = videoSize.height
+			val baseWidth = (videoSize.width * videoSize.pixelWidthHeightRatio).roundToInt()
+			val baseHeight = videoSize.height
+
+			// Handle video rotation: swap width and height if rotation is 90 or 270 degrees
+			// uAppliedRotationDegrees indicates rotation that has NOT been applied to the pixel data
+			val width: Int
+			val height: Int
+			if (videoSize.uAppliedRotationDegrees == 90 || videoSize.uAppliedRotationDegrees == 270) {
+				width = baseHeight
+				height = baseWidth
+			} else {
+				width = baseWidth
+				height = baseHeight
+			}
+
 			val newHasVideo = width > 0 && height > 0
 			if (newHasVideo != hasVideo) {
 				hasVideo = newHasVideo
