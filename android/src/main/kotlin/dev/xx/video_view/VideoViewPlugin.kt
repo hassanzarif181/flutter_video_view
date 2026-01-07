@@ -451,10 +451,10 @@ class VideoController(
 			val baseHeight = videoSize.height
 
 			// Handle video rotation: swap width and height if rotation is 90 or 270 degrees
-			// uAppliedRotationDegrees indicates rotation that has NOT been applied to the pixel data
+			// unappliedRotationDegrees indicates rotation that has NOT been applied to the pixel data
 			val width: Int
 			val height: Int
-			if (videoSize.uAppliedRotationDegrees == 90 || videoSize.uAppliedRotationDegrees == 270) {
+			if (videoSize.unappliedRotationDegrees == 90 || videoSize.unappliedRotationDegrees == 270) {
 				width = baseHeight
 				height = baseWidth
 			} else {
